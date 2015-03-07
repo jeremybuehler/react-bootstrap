@@ -1,19 +1,19 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var createChainedFunction = require('./utils/createChainedFunction');
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
+import createChainedFunction from './utils/createChainedFunction';
+import ValidComponentChildren from './utils/ValidComponentChildren';
 
-var DropdownMenu = React.createClass({
+const DropdownMenu = React.createClass({
   propTypes: {
     pullRight: React.PropTypes.bool,
     onSelect: React.PropTypes.func
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
         'dropdown-menu': true,
         'dropdown-menu-right': this.props.pullRight
       };
@@ -28,7 +28,7 @@ var DropdownMenu = React.createClass({
       );
   },
 
-  renderMenuItem: function (child, index) {
+  renderMenuItem(child, index) {
     return cloneWithProps(
       child,
       {
@@ -43,4 +43,4 @@ var DropdownMenu = React.createClass({
   }
 });
 
-module.exports = DropdownMenu;
+export default DropdownMenu;

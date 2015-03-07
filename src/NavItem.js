@@ -1,9 +1,9 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-var NavItem = React.createClass({
+const NavItem = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -16,26 +16,26 @@ var NavItem = React.createClass({
     target: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       href: '#'
     };
   },
 
-  render: function () {
-    var {
+  render() {
+    let {
         disabled,
         active,
         href,
         title,
         target,
         children,
-        ...props } = this.props,
-        classes = {
+        ...props } = this.props;
+    let classes = {
           'active': active,
           'disabled': disabled
-        },
-        linkProps = {
+        };
+    let linkProps = {
           href,
           title,
           target,
@@ -56,7 +56,7 @@ var NavItem = React.createClass({
     );
   },
 
-  handleClick: function (e) {
+  handleClick(e) {
     if (this.props.onSelect) {
       e.preventDefault();
 
@@ -67,4 +67,4 @@ var NavItem = React.createClass({
   }
 });
 
-module.exports = NavItem;
+export default NavItem;

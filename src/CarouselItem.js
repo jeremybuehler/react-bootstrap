@@ -1,9 +1,9 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var TransitionEvents = require('./utils/TransitionEvents');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import TransitionEvents from './utils/TransitionEvents';
 
-var CarouselItem = React.createClass({
+const CarouselItem = React.createClass({
   propTypes: {
     direction: React.PropTypes.oneOf(['prev', 'next']),
     onAnimateOutEnd: React.PropTypes.func,
@@ -11,25 +11,25 @@ var CarouselItem = React.createClass({
     caption: React.PropTypes.node
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       direction: null
     };
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       animation: true
     };
   },
 
-  handleAnimateOutEnd: function () {
+  handleAnimateOutEnd() {
     if (this.props.onAnimateOutEnd && this.isMounted()) {
       this.props.onAnimateOutEnd(this.props.index);
     }
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.active !== nextProps.active) {
       this.setState({
         direction: null
@@ -37,7 +37,7 @@ var CarouselItem = React.createClass({
     }
   },
 
-  componentDidUpdate: function (prevProps) {
+  componentDidUpdate(prevProps) {
     if (!this.props.active && prevProps.active) {
       TransitionEvents.addEndEventListener(
         this.getDOMNode(),
@@ -50,7 +50,7 @@ var CarouselItem = React.createClass({
     }
   },
 
-  startAnimation: function () {
+  startAnimation() {
     if (!this.isMounted()) {
       return;
     }
@@ -61,8 +61,8 @@ var CarouselItem = React.createClass({
     });
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       item: true,
       active: (this.props.active && !this.props.animateIn) || this.props.animateOut,
       next: this.props.active && this.props.animateIn && this.props.direction === 'next',
@@ -81,7 +81,7 @@ var CarouselItem = React.createClass({
     );
   },
 
-  renderCaption: function () {
+  renderCaption() {
     return (
       <div className="carousel-caption">
         {this.props.caption}
@@ -90,4 +90,4 @@ var CarouselItem = React.createClass({
   }
 });
 
-module.exports = CarouselItem;
+export default CarouselItem;

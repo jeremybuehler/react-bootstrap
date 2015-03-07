@@ -1,21 +1,21 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
 
-var Grid = React.createClass({
+const Grid = React.createClass({
   propTypes: {
     fluid: React.PropTypes.bool,
     componentClass: React.PropTypes.node.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       componentClass: 'div'
     };
   },
 
-  render: function () {
-    var ComponentClass = this.props.componentClass;
-    var className = this.props.fluid ? 'container-fluid' : 'container';
+  render() {
+    let ComponentClass = this.props.componentClass;
+    let className = this.props.fluid ? 'container-fluid' : 'container';
 
     return (
       <ComponentClass
@@ -27,4 +27,4 @@ var Grid = React.createClass({
   }
 });
 
-module.exports = Grid;
+export default Grid;

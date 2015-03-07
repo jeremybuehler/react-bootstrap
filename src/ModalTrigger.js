@@ -1,41 +1,41 @@
-var React = require('react');
-var OverlayMixin = require('./OverlayMixin');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import OverlayMixin from './OverlayMixin';
+import cloneWithProps from './utils/cloneWithProps';
 
-var createChainedFunction = require('./utils/createChainedFunction');
+import createChainedFunction from './utils/createChainedFunction';
 
-var ModalTrigger = React.createClass({
+const ModalTrigger = React.createClass({
   mixins: [OverlayMixin],
 
   propTypes: {
     modal: React.PropTypes.node.isRequired
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       isOverlayShown: false
     };
   },
 
-  show: function () {
+  show() {
     this.setState({
       isOverlayShown: true
     });
   },
 
-  hide: function () {
+  hide() {
     this.setState({
       isOverlayShown: false
     });
   },
 
-  toggle: function () {
+  toggle() {
     this.setState({
       isOverlayShown: !this.state.isOverlayShown
     });
   },
 
-  renderOverlay: function () {
+  renderOverlay() {
     if (!this.state.isOverlayShown) {
       return <span />;
     }
@@ -48,8 +48,8 @@ var ModalTrigger = React.createClass({
     );
   },
 
-  render: function () {
-    var child = React.Children.only(this.props.children);
+  render() {
+    let child = React.Children.only(this.props.children);
     return cloneWithProps(
       child,
       {
@@ -59,4 +59,4 @@ var ModalTrigger = React.createClass({
   }
 });
 
-module.exports = ModalTrigger;
+export default ModalTrigger;

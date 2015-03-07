@@ -1,10 +1,9 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-
-var Alert = React.createClass({
+const Alert = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -12,14 +11,14 @@ var Alert = React.createClass({
     dismissAfter: React.PropTypes.number
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'alert',
       bsStyle: 'info'
     };
   },
 
-  renderDismissButton: function () {
+  renderDismissButton() {
     return (
       <button
         type="button"
@@ -31,9 +30,9 @@ var Alert = React.createClass({
     );
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
-    var isDismissable = !!this.props.onDismiss;
+  render() {
+    let classes = this.getBsClassSet();
+    let isDismissable = !!this.props.onDismiss;
 
     classes['alert-dismissable'] = isDismissable;
 
@@ -45,15 +44,15 @@ var Alert = React.createClass({
     );
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     if (this.props.dismissAfter && this.props.onDismiss) {
       this.dismissTimer = setTimeout(this.props.onDismiss, this.props.dismissAfter);
     }
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     clearTimeout(this.dismissTimer);
   }
 });
 
-module.exports = Alert;
+export default Alert;

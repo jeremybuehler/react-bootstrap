@@ -1,16 +1,14 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var BootstrapMixin = require('./BootstrapMixin');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import BootstrapMixin from './BootstrapMixin';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var ListGroupItem = React.createClass({
+const ListGroupItem = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
-    bsStyle: React.PropTypes.oneOf(['danger','info','success','warning']),
+    bsStyle: React.PropTypes.oneOf(['danger', 'info', 'success', 'warning']),
     active: React.PropTypes.any,
     disabled: React.PropTypes.any,
     header: React.PropTypes.node,
@@ -20,17 +18,17 @@ var ListGroupItem = React.createClass({
     target: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'list-group-item'
     };
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
+  render() {
+    let classes = this.getBsClassSet();
 
-    classes['active'] = this.props.active;
-    classes['disabled'] = this.props.disabled;
+    classes.active = this.props.active;
+    classes.disabled = this.props.disabled;
 
     if (this.props.href || this.props.target || this.props.onClick) {
       return this.renderAnchor(classes);
@@ -39,7 +37,7 @@ var ListGroupItem = React.createClass({
     }
   },
 
-  renderSpan: function (classes) {
+  renderSpan(classes) {
     return (
       <span {...this.props} className={joinClasses(this.props.className, classSet(classes))}>
         {this.props.header ? this.renderStructuredContent() : this.props.children}
@@ -47,7 +45,7 @@ var ListGroupItem = React.createClass({
     );
   },
 
-  renderAnchor: function (classes) {
+  renderAnchor(classes) {
     return (
       <a
         {...this.props}
@@ -58,8 +56,8 @@ var ListGroupItem = React.createClass({
     );
   },
 
-  renderStructuredContent: function () {
-    var header;
+  renderStructuredContent() {
+    let header;
     if (React.isValidElement(this.props.header)) {
       header = cloneWithProps(this.props.header, {
         className: 'list-group-item-heading'
@@ -72,7 +70,7 @@ var ListGroupItem = React.createClass({
       );
     }
 
-    var content = (
+    let content = (
       <p className="list-group-item-text">
         {this.props.children}
       </p>
@@ -85,4 +83,4 @@ var ListGroupItem = React.createClass({
   }
 });
 
-module.exports = ListGroupItem;
+export default ListGroupItem;

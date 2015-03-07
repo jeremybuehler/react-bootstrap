@@ -1,12 +1,12 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var BootstrapMixin = require('./BootstrapMixin');
-var CollapsableMixin = require('./CollapsableMixin');
+import BootstrapMixin from './BootstrapMixin';
+import CollapsableMixin from './CollapsableMixin';
 
-var Panel = React.createClass({
+const Panel = React.createClass({
   mixins: [BootstrapMixin, CollapsableMixin],
 
   propTypes: {
@@ -16,14 +16,14 @@ var Panel = React.createClass({
     eventKey: React.PropTypes.any
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'panel',
       bsStyle: 'default'
     };
   },
 
-  handleSelect: function (e) {
+  handleSelect(e) {
     if (this.props.onSelect) {
       this._isChanging = true;
       this.props.onSelect(this.props.eventKey);
@@ -37,15 +37,15 @@ var Panel = React.createClass({
     });
   },
 
-  shouldComponentUpdate: function () {
+  shouldComponentUpdate() {
     return !this._isChanging;
   },
 
-  getCollapsableDimensionValue: function () {
+  getCollapsableDimensionValue() {
     return this.refs.panel.getDOMNode().scrollHeight;
   },
 
-  getCollapsableDOMNode: function () {
+  getCollapsableDOMNode() {
     if (!this.isMounted() || !this.refs || !this.refs.panel) {
       return null;
     }
@@ -53,9 +53,9 @@ var Panel = React.createClass({
     return this.refs.panel.getDOMNode();
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
-    classes['panel'] = true;
+  render() {
+    let classes = this.getBsClassSet();
+    classes.panel = true;
 
     return (
       <div {...this.props} className={joinClasses(this.props.className, classSet(classes))}
@@ -67,7 +67,7 @@ var Panel = React.createClass({
     );
   },
 
-  renderCollapsableBody: function () {
+  renderCollapsableBody() {
     return (
       <div className={classSet(this.getCollapsableClassSet('panel-collapse'))} id={this.props.id} ref="panel">
         {this.renderBody()}
@@ -75,9 +75,9 @@ var Panel = React.createClass({
     );
   },
 
-  renderBody: function () {
-    var allChildren = this.props.children;
-    var bodyElements = [];
+  renderBody() {
+    let allChildren = this.props.children;
+    let bodyElements = [];
 
     function getProps() {
       return {key: bodyElements.length};
@@ -96,23 +96,22 @@ var Panel = React.createClass({
     }
 
     // Handle edge cases where we should not iterate through children.
-    if (!Array.isArray(allChildren) || allChildren.length == 0) {
+    if (!Array.isArray(allChildren) || allChildren.length === 0) {
       if (this.shouldRenderFill(allChildren)) {
         addPanelChild(allChildren);
       } else {
         addPanelBody(allChildren);
       }
     } else {
-      var panelBodyChildren = [];
-
-      function maybeRenderPanelBody () {
-        if (panelBodyChildren.length == 0) {
+      let panelBodyChildren = [];
+      let maybeRenderPanelBody = () => {
+        if (panelBodyChildren.length === 0) {
           return;
         }
 
         addPanelBody(panelBodyChildren);
         panelBodyChildren = [];
-      }
+      };
 
       allChildren.forEach(function(child) {
         if (this.shouldRenderFill(child)) {
@@ -131,12 +130,12 @@ var Panel = React.createClass({
     return bodyElements;
   },
 
-  shouldRenderFill: function (child) {
-    return React.isValidElement(child) && child.props.fill != null
+  shouldRenderFill(child) {
+    return React.isValidElement(child) && child.props.fill != null;
   },
 
-  renderHeading: function () {
-    var header = this.props.header;
+  renderHeading() {
+    let header = this.props.header;
 
     if (!header) {
       return null;
@@ -163,7 +162,7 @@ var Panel = React.createClass({
     );
   },
 
-  renderAnchor: function (header) {
+  renderAnchor(header) {
     return (
       <a
         href={'#' + (this.props.id || '')}
@@ -174,7 +173,7 @@ var Panel = React.createClass({
     );
   },
 
-  renderCollapsableTitle: function (header) {
+  renderCollapsableTitle(header) {
     return (
       <h4 className="panel-title">
         {this.renderAnchor(header)}
@@ -182,7 +181,7 @@ var Panel = React.createClass({
     );
   },
 
-  renderFooter: function () {
+  renderFooter() {
     if (!this.props.footer) {
       return null;
     }
@@ -195,4 +194,4 @@ var Panel = React.createClass({
   }
 });
 
-module.exports = Panel;
+export default Panel;

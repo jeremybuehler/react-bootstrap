@@ -1,13 +1,13 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
-var DropdownStateMixin = require('./DropdownStateMixin');
-var Button = require('./Button');
-var ButtonGroup = require('./ButtonGroup');
-var DropdownMenu = require('./DropdownMenu');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
+import DropdownStateMixin from './DropdownStateMixin';
+import Button from './Button';
+import ButtonGroup from './ButtonGroup';
+import DropdownMenu from './DropdownMenu';
 
-var SplitButton = React.createClass({
+const SplitButton = React.createClass({
   mixins: [BootstrapMixin, DropdownStateMixin],
 
   propTypes: {
@@ -21,19 +21,19 @@ var SplitButton = React.createClass({
     disabled:      React.PropTypes.bool
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       dropdownTitle: 'Toggle dropdown'
     };
   },
 
-  render: function () {
-    var groupClasses = {
+  render() {
+    let groupClasses = {
         'open': this.state.open,
         'dropup': this.props.dropup
       };
 
-    var button = (
+    let button = (
       <Button
         {...this.props}
         ref="button"
@@ -44,7 +44,7 @@ var SplitButton = React.createClass({
       </Button>
     );
 
-    var dropdownButton = (
+    let dropdownButton = (
       <Button
         {...this.props}
         ref="dropdownButton"
@@ -77,7 +77,7 @@ var SplitButton = React.createClass({
     );
   },
 
-  handleButtonClick: function (e) {
+  handleButtonClick(e) {
     if (this.state.open) {
       this.setDropdownState(false);
     }
@@ -87,13 +87,13 @@ var SplitButton = React.createClass({
     }
   },
 
-  handleDropdownClick: function (e) {
+  handleDropdownClick(e) {
     e.preventDefault();
 
     this.setDropdownState(!this.state.open);
   },
 
-  handleOptionSelect: function (key) {
+  handleOptionSelect(key) {
     if (this.props.onSelect) {
       this.props.onSelect(key);
     }
@@ -102,4 +102,4 @@ var SplitButton = React.createClass({
   }
 });
 
-module.exports = SplitButton;
+export default SplitButton;

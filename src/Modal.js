@@ -1,11 +1,9 @@
-/* global document:false */
-
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
-var FadeMixin = require('./FadeMixin');
-var EventListener = require('./utils/EventListener');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
+import FadeMixin from './FadeMixin';
+import EventListener from './utils/EventListener';
 
 
 // TODO:
@@ -13,7 +11,7 @@ var EventListener = require('./utils/EventListener');
 // - Add `modal-body` div if only one child passed in that doesn't already have it
 // - Tests
 
-var Modal = React.createClass({
+const Modal = React.createClass({
   mixins: [BootstrapMixin, FadeMixin],
 
   propTypes: {
@@ -25,7 +23,7 @@ var Modal = React.createClass({
     onRequestHide: React.PropTypes.func.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'modal',
       backdrop: true,
@@ -35,19 +33,19 @@ var Modal = React.createClass({
     };
   },
 
-  render: function () {
-    var modalStyle = {display: 'block'};
-    var dialogClasses = this.getBsClassSet();
+  render() {
+    let modalStyle = {display: 'block'};
+    let dialogClasses = this.getBsClassSet();
     delete dialogClasses.modal;
     dialogClasses['modal-dialog'] = true;
 
-    var classes = {
+    let classes = {
       modal: true,
       fade: this.props.animation,
       'in': !this.props.animation || !document.querySelectorAll
     };
 
-    var modal = (
+    let modal = (
       <div
         {...this.props}
         title={null}
@@ -70,15 +68,15 @@ var Modal = React.createClass({
       this.renderBackdrop(modal) : modal;
   },
 
-  renderBackdrop: function (modal) {
-    var classes = {
+  renderBackdrop(modal) {
+    let classes = {
       'modal-backdrop': true,
       'fade': this.props.animation
     };
 
-    classes['in'] = !this.props.animation || !document.querySelectorAll;
+    classes.in = !this.props.animation || !document.querySelectorAll;
 
-    var onClick = this.props.backdrop === true ?
+    let onClick = this.props.backdrop === true ?
       this.handleBackdropClick : null;
 
     return (
@@ -89,22 +87,22 @@ var Modal = React.createClass({
     );
   },
 
-  renderHeader: function () {
-    var closeButton;
+  renderHeader() {
+    let closeButton;
     if (this.props.closeButton) {
       closeButton = (
           <button type="button" className="close" aria-hidden="true" onClick={this.props.onRequestHide}>&times;</button>
         );
     }
 
-    var style = this.props.bsStyle;
-    var classes = {
+    let style = this.props.bsStyle;
+    let classes = {
       'modal-header': true
     };
     classes['bg-' + style] = style;
     classes['text-' + style] = style;
 
-    var className = classSet(classes);
+    let className = classSet(classes);
 
     return (
       <div className={className}>
@@ -114,14 +112,14 @@ var Modal = React.createClass({
     );
   },
 
-  renderTitle: function () {
+  renderTitle() {
     return (
       React.isValidElement(this.props.title) ?
         this.props.title : <h4 className="modal-title">{this.props.title}</h4>
     );
   },
 
-  iosClickHack: function () {
+  iosClickHack() {
     // IOS only allows click events to be delegated to the document on elements
     // it considers 'clickable' - anchors, buttons, etc. We fake a click handler on the
     // DOM nodes themselves. Remove if handled by React: https://github.com/facebook/react/issues/1169
@@ -129,11 +127,11 @@ var Modal = React.createClass({
     this.refs.backdrop.getDOMNode().onclick = function () {};
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this._onDocumentKeyupListener =
       EventListener.listen(document, 'keyup', this.handleDocumentKeyUp);
 
-    var container = (this.props.container && this.props.container.getDOMNode()) || document.body;
+    let container = (this.props.container && this.props.container.getDOMNode()) || document.body;
     container.className += container.className.length ? ' modal-open' : 'modal-open';
 
     if (this.props.backdrop) {
@@ -141,19 +139,19 @@ var Modal = React.createClass({
     }
   },
 
-  componentDidUpdate: function (prevProps) {
+  componentDidUpdate(prevProps) {
     if (this.props.backdrop && this.props.backdrop !== prevProps.backdrop) {
       this.iosClickHack();
     }
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     this._onDocumentKeyupListener.remove();
-    var container = (this.props.container && this.props.container.getDOMNode()) || document.body;
+    let container = (this.props.container && this.props.container.getDOMNode()) || document.body;
     container.className = container.className.replace(/ ?modal-open/, '');
   },
 
-  handleBackdropClick: function (e) {
+  handleBackdropClick(e) {
     if (e.target !== e.currentTarget) {
       return;
     }
@@ -161,11 +159,11 @@ var Modal = React.createClass({
     this.props.onRequestHide();
   },
 
-  handleDocumentKeyUp: function (e) {
+  handleDocumentKeyUp(e) {
     if (this.props.keyboard && e.keyCode === 27) {
       this.props.onRequestHide();
     }
   }
 });
 
-module.exports = Modal;
+export default Modal;

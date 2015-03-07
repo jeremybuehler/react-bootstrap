@@ -1,15 +1,13 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var BootstrapMixin = require('./BootstrapMixin');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import BootstrapMixin from './BootstrapMixin';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var createChainedFunction = require('./utils/createChainedFunction');
-var Nav = require('./Nav');
+import ValidComponentChildren from './utils/ValidComponentChildren';
+import createChainedFunction from './utils/createChainedFunction';
 
-
-var Navbar = React.createClass({
+const Navbar = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -31,7 +29,7 @@ var Navbar = React.createClass({
     defaultNavExpanded: React.PropTypes.bool
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'navbar',
       bsStyle: 'default',
@@ -40,18 +38,18 @@ var Navbar = React.createClass({
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       navExpanded: this.props.defaultNavExpanded
     };
   },
 
-  shouldComponentUpdate: function() {
+  shouldComponentUpdate() {
     // Defer any updates to this component during the `onSelect` handler.
     return !this._isChanging;
   },
 
-  handleToggle: function () {
+  handleToggle() {
     if (this.props.onToggle) {
       this._isChanging = true;
       this.props.onToggle();
@@ -63,13 +61,13 @@ var Navbar = React.createClass({
     });
   },
 
-  isNavExpanded: function () {
+  isNavExpanded() {
     return this.props.navExpanded != null ? this.props.navExpanded : this.state.navExpanded;
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
-    var ComponentClass = this.props.componentClass;
+  render() {
+    let classes = this.getBsClassSet();
+    let ComponentClass = this.props.componentClass;
 
     classes['navbar-fixed-top'] = this.props.fixedTop;
     classes['navbar-fixed-bottom'] = this.props.fixedBottom;
@@ -86,7 +84,7 @@ var Navbar = React.createClass({
     );
   },
 
-  renderChild: function (child, index) {
+  renderChild(child, index) {
     return cloneWithProps(child, {
       navbar: true,
       collapsable: this.props.toggleNavKey != null && this.props.toggleNavKey === child.props.eventKey,
@@ -96,8 +94,8 @@ var Navbar = React.createClass({
     });
   },
 
-  renderHeader: function () {
-    var brand;
+  renderHeader() {
+    let brand;
 
     if (this.props.brand) {
       brand = React.isValidElement(this.props.brand) ?
@@ -114,8 +112,8 @@ var Navbar = React.createClass({
     );
   },
 
-  renderToggleButton: function () {
-    var children;
+  renderToggleButton() {
+    let children;
 
     if (React.isValidElement(this.props.toggleButton)) {
       return cloneWithProps(this.props.toggleButton, {
@@ -140,4 +138,4 @@ var Navbar = React.createClass({
   }
 });
 
-module.exports = Navbar;
+export default Navbar;

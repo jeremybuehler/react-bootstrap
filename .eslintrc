@@ -8,8 +8,11 @@
   },
   "parser": "babel-eslint",
   "rules": {
+    "key-spacing": 0,
     "no-underscore-dangle": 0,
     "quotes": [1, "single", "avoid-escape"],
-    "strict": 0
+    "strict": 0,
+    "no-unused-vars": [2, { "vars": "all", "args": "none" }],
+    "no-var": 1
   }
 }

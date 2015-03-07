@@ -1,20 +1,19 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
-var Button = require('./Button');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-var ButtonToolbar = React.createClass({
+const ButtonToolbar = React.createClass({
   mixins: [BootstrapMixin],
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'button-toolbar'
     };
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
+  render() {
+    let classes = this.getBsClassSet();
 
     return (
       <div
@@ -27,4 +26,4 @@ var ButtonToolbar = React.createClass({
   }
 });
 
-module.exports = ButtonToolbar;
+export default ButtonToolbar;

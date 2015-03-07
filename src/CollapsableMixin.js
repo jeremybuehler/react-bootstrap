@@ -1,7 +1,7 @@
-var React = require('react');
-var TransitionEvents = require('./utils/TransitionEvents');
+import React from 'react';
+import TransitionEvents from './utils/TransitionEvents';
 
-var CollapsableMixin = {
+const CollapsableMixin = {
 
   propTypes: {
     collapsable: React.PropTypes.bool,
@@ -9,21 +9,21 @@ var CollapsableMixin = {
     expanded: React.PropTypes.bool
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       expanded: this.props.defaultExpanded != null ? this.props.defaultExpanded : null,
       collapsing: false
     };
   },
 
-  handleTransitionEnd: function () {
+  handleTransitionEnd() {
     this._collapseEnd = true;
     this.setState({
       collapsing: false
     });
   },
 
-  componentWillReceiveProps: function (newProps) {
+  componentWillReceiveProps(newProps) {
     if (this.props.collapsable && newProps.expanded !== this.props.expanded) {
       this._collapseEnd = false;
       this.setState({
@@ -32,8 +32,8 @@ var CollapsableMixin = {
     }
   },
 
-  _addEndTransitionListener: function () {
-    var node = this.getCollapsableDOMNode();
+  _addEndTransitionListener() {
+    let node = this.getCollapsableDOMNode();
 
     if (node) {
       TransitionEvents.addEndEventListener(
@@ -43,8 +43,8 @@ var CollapsableMixin = {
     }
   },
 
-  _removeEndTransitionListener: function () {
-    var node = this.getCollapsableDOMNode();
+  _removeEndTransitionListener() {
+    let node = this.getCollapsableDOMNode();
 
     if (node) {
       TransitionEvents.removeEndEventListener(
@@ -54,27 +54,27 @@ var CollapsableMixin = {
     }
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this._afterRender();
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     this._removeEndTransitionListener();
   },
 
-  componentWillUpdate: function (nextProps) {
-    var dimension = (typeof this.getCollapsableDimension === 'function') ?
+  componentWillUpdate(nextProps) {
+    let dimension = (typeof this.getCollapsableDimension === 'function') ?
       this.getCollapsableDimension() : 'height';
-    var node = this.getCollapsableDOMNode();
+    let node = this.getCollapsableDOMNode();
 
     this._removeEndTransitionListener();
   },
 
-  componentDidUpdate: function (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     this._afterRender();
   },
 
-  _afterRender: function () {
+  _afterRender() {
     if (!this.props.collapsable) {
       return;
     }
@@ -83,38 +83,38 @@ var CollapsableMixin = {
     setTimeout(this._updateDimensionAfterRender, 0);
   },
 
-  _updateDimensionAfterRender: function () {
-    var node = this.getCollapsableDOMNode();
+  _updateDimensionAfterRender() {
+    let node = this.getCollapsableDOMNode();
     if (node) {
-        var dimension = (typeof this.getCollapsableDimension === 'function') ?
+        let dimension = (typeof this.getCollapsableDimension === 'function') ?
             this.getCollapsableDimension() : 'height';
         node.style[dimension] = this.isExpanded() ?
             this.getCollapsableDimensionValue() + 'px' : '0px';
     }
   },
 
-  isExpanded: function () {
+  isExpanded() {
     return (this.props.expanded != null) ?
       this.props.expanded : this.state.expanded;
   },
 
-  getCollapsableClassSet: function (className) {
-    var classes = {};
+  getCollapsableClassSet(className) {
+    let classes = {};
 
     if (typeof className === 'string') {
-      className.split(' ').forEach(function (className) {
-        if (className) {
-          classes[className] = true;
+      className.split(' ').forEach(function (name) {
+        if (name) {
+          classes.name = true;
         }
       });
     }
 
     classes.collapsing = this.state.collapsing;
     classes.collapse = !this.state.collapsing;
-    classes['in'] = this.isExpanded() && !this.state.collapsing;
+    classes.in = this.isExpanded() && !this.state.collapsing;
 
     return classes;
   }
 };
 
-module.exports = CollapsableMixin;
+export default CollapsableMixin;

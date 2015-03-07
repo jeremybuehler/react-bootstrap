@@ -1,9 +1,8 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
 
-var PageHeader = React.createClass({
-
-  render: function () {
+const PageHeader = React.createClass({
+  render() {
     return (
       <div {...this.props} className={joinClasses(this.props.className, 'page-header')}>
         <h1>{this.props.children}</h1>
@@ -12,4 +11,4 @@ var PageHeader = React.createClass({
   }
 });
 
-module.exports = PageHeader;
+export default PageHeader;

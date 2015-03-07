@@ -1,23 +1,23 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var TransitionEvents = require('./utils/TransitionEvents');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import TransitionEvents from './utils/TransitionEvents';
 
-var TabPane = React.createClass({
-  getDefaultProps: function () {
+const TabPane = React.createClass({
+  getDefaultProps() {
     return {
       animation: true
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       animateIn: false,
       animateOut: false
     };
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.animation) {
       if (!this.state.animateIn && nextProps.active && !this.props.active) {
         this.setState({
@@ -31,7 +31,7 @@ var TabPane = React.createClass({
     }
   },
 
-  componentDidUpdate: function () {
+  componentDidUpdate() {
     if (this.state.animateIn) {
       setTimeout(this.startAnimateIn, 0);
     }
@@ -43,7 +43,7 @@ var TabPane = React.createClass({
     }
   },
 
-  startAnimateIn: function () {
+  startAnimateIn() {
     if (this.isMounted()) {
       this.setState({
         animateIn: false
@@ -51,7 +51,7 @@ var TabPane = React.createClass({
     }
   },
 
-  stopAnimateOut: function () {
+  stopAnimateOut() {
     if (this.isMounted()) {
       this.setState({
         animateOut: false
@@ -63,8 +63,8 @@ var TabPane = React.createClass({
     }
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       'tab-pane': true,
       'fade': true,
       'active': this.props.active || this.state.animateOut,
@@ -79,4 +79,4 @@ var TabPane = React.createClass({
   }
 });
 
-module.exports = TabPane;
+export default TabPane;

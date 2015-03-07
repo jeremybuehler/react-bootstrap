@@ -1,39 +1,41 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-
-var Tooltip = React.createClass({
+const Tooltip = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
-    placement: React.PropTypes.oneOf(['top','right', 'bottom', 'left']),
+    placement: React.PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     positionLeft: React.PropTypes.number,
     positionTop: React.PropTypes.number,
     arrowOffsetLeft: React.PropTypes.number,
     arrowOffsetTop: React.PropTypes.number
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       placement: 'right'
     };
   },
 
-  render: function () {
-    var classes = {};
-    classes['tooltip'] = true;
-    classes[this.props.placement] = true;
-    classes['in'] = this.props.positionLeft != null || this.props.positionTop != null;
+  render() {
+    let classes = {
+      'tooltip': true,
+      [this.props.placement]: true,
+      'in': this.props.positionLeft != null || this.props.positionTop != null
+    };
 
-    var style = {};
-    style['left'] = this.props.positionLeft;
-    style['top'] = this.props.positionTop;
+    let style = {
+      'left': this.props.positionLeft,
+      'top': this.props.positionTop
+    };
 
-    var arrowStyle = {};
-    arrowStyle['left'] = this.props.arrowOffsetLeft;
-    arrowStyle['top'] = this.props.arrowOffsetTop;
+    let arrowStyle = {
+      'left': this.props.arrowOffsetLeft,
+      'top': this.props.arrowOffsetTop
+    };
 
     return (
         <div {...this.props} className={joinClasses(this.props.className, classSet(classes))} style={style}>
@@ -46,4 +48,4 @@ var Tooltip = React.createClass({
   }
 });
 
-module.exports = Tooltip;
+export default Tooltip;

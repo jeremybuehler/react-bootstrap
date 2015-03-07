@@ -1,10 +1,9 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
-var Button = require('./Button');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-var ButtonGroup = React.createClass({
+const ButtonGroup = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -12,14 +11,14 @@ var ButtonGroup = React.createClass({
     justified: React.PropTypes.bool
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'button-group'
     };
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
+  render() {
+    let classes = this.getBsClassSet();
     classes['btn-group'] = !this.props.vertical;
     classes['btn-group-vertical'] = this.props.vertical;
     classes['btn-group-justified'] = this.props.justified;
@@ -34,4 +33,4 @@ var ButtonGroup = React.createClass({
   }
 });
 
-module.exports = ButtonGroup;
+export default ButtonGroup;

@@ -1,8 +1,8 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
 
-var Table = React.createClass({
+const Table = React.createClass({
   propTypes: {
     striped: React.PropTypes.bool,
     bordered: React.PropTypes.bool,
@@ -11,15 +11,15 @@ var Table = React.createClass({
     responsive: React.PropTypes.bool
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       'table': true,
       'table-striped': this.props.striped,
       'table-bordered': this.props.bordered,
       'table-condensed': this.props.condensed,
       'table-hover': this.props.hover
     };
-    var table = (
+    let table = (
       <table {...this.props} className={joinClasses(this.props.className, classSet(classes))}>
         {this.props.children}
       </table>
@@ -33,4 +33,4 @@ var Table = React.createClass({
   }
 });
 
-module.exports = Table;
+export default Table;

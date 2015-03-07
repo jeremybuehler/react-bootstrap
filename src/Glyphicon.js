@@ -1,24 +1,24 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
-var constants = require('./constants');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
+import constants from './constants';
 
-var Glyphicon = React.createClass({
+const Glyphicon = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
     glyph: React.PropTypes.oneOf(constants.GLYPHS).isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'glyphicon'
     };
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
+  render() {
+    let classes = this.getBsClassSet();
 
     classes['glyphicon-' + this.props.glyph] = true;
 
@@ -30,4 +30,4 @@ var Glyphicon = React.createClass({
   }
 });
 
-module.exports = Glyphicon;
+export default Glyphicon;

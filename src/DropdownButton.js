@@ -1,18 +1,17 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var createChainedFunction = require('./utils/createChainedFunction');
-var BootstrapMixin = require('./BootstrapMixin');
-var DropdownStateMixin = require('./DropdownStateMixin');
-var Button = require('./Button');
-var ButtonGroup = require('./ButtonGroup');
-var DropdownMenu = require('./DropdownMenu');
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
+import createChainedFunction from './utils/createChainedFunction';
+import BootstrapMixin from './BootstrapMixin';
+import DropdownStateMixin from './DropdownStateMixin';
+import Button from './Button';
+import ButtonGroup from './ButtonGroup';
+import DropdownMenu from './DropdownMenu';
+import ValidComponentChildren from './utils/ValidComponentChildren';
 
-
-var DropdownButton = React.createClass({
+const DropdownButton = React.createClass({
   mixins: [BootstrapMixin, DropdownStateMixin],
 
   propTypes: {
@@ -26,11 +25,11 @@ var DropdownButton = React.createClass({
     noCaret:   React.PropTypes.bool
   },
 
-  render: function () {
-    var renderMethod = this.props.navItem ?
+  render() {
+    let renderMethod = this.props.navItem ?
       'renderNavItem' : 'renderButtonGroup';
 
-    var caret = this.props.noCaret ?
+    let caret = this.props.noCaret ?
         null : (<span className="caret" />);
 
     return this[renderMethod]([
@@ -58,8 +57,8 @@ var DropdownButton = React.createClass({
     ]);
   },
 
-  renderButtonGroup: function (children) {
-    var groupClasses = {
+  renderButtonGroup(children) {
+    let groupClasses = {
         'open': this.state.open,
         'dropup': this.props.dropup
       };
@@ -73,8 +72,8 @@ var DropdownButton = React.createClass({
     );
   },
 
-  renderNavItem: function (children) {
-    var classes = {
+  renderNavItem(children) {
+    let classes = {
         'dropdown': true,
         'open': this.state.open,
         'dropup': this.props.dropup
@@ -87,11 +86,11 @@ var DropdownButton = React.createClass({
     );
   },
 
-  renderMenuItem: function (child, index) {
+  renderMenuItem(child, index) {
     // Only handle the option selection if an onSelect prop has been set on the
     // component or it's child, this allows a user not to pass an onSelect
     // handler and have the browser preform the default action.
-    var handleOptionSelect = this.props.onSelect || child.props.onSelect ?
+    let handleOptionSelect = this.props.onSelect || child.props.onSelect ?
       this.handleOptionSelect : null;
 
     return cloneWithProps(
@@ -107,13 +106,13 @@ var DropdownButton = React.createClass({
     );
   },
 
-  handleDropdownClick: function (e) {
+  handleDropdownClick(e) {
     e.preventDefault();
 
     this.setDropdownState(!this.state.open);
   },
 
-  handleOptionSelect: function (key) {
+  handleOptionSelect(key) {
     if (this.props.onSelect) {
       this.props.onSelect(key);
     }
@@ -122,4 +121,4 @@ var DropdownButton = React.createClass({
   }
 });
 
-module.exports = DropdownButton;
+export default DropdownButton;

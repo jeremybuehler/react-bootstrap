@@ -1,14 +1,13 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var Interpolate = require('./Interpolate');
-var BootstrapMixin = require('./BootstrapMixin');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import Interpolate from './Interpolate';
+import BootstrapMixin from './BootstrapMixin';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
+import ValidComponentChildren from './utils/ValidComponentChildren';
 
-
-var ProgressBar = React.createClass({
+const ProgressBar = React.createClass({
   propTypes: {
     min: React.PropTypes.number,
     now: React.PropTypes.number,
@@ -21,7 +20,7 @@ var ProgressBar = React.createClass({
 
   mixins: [BootstrapMixin],
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'progress-bar',
       min: 0,
@@ -29,18 +28,18 @@ var ProgressBar = React.createClass({
     };
   },
 
-  getPercentage: function (now, min, max) {
+  getPercentage(now, min, max) {
     return Math.ceil((now - min) / (max - min) * 100);
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
         progress: true
       };
 
     if (this.props.active) {
       classes['progress-striped'] = true;
-      classes['active'] = true;
+      classes.active = true;
     } else if (this.props.striped) {
       classes['progress-striped'] = true;
     }
@@ -66,7 +65,7 @@ var ProgressBar = React.createClass({
     }
   },
 
-  renderChildBar: function (child, index) {
+  renderChildBar(child, index) {
     return cloneWithProps(child, {
       isChild: true,
       key: child.key ? child.key : index,
@@ -74,16 +73,16 @@ var ProgressBar = React.createClass({
     });
   },
 
-  renderProgressBar: function () {
-    var percentage = this.getPercentage(
+  renderProgressBar() {
+    let percentage = this.getPercentage(
         this.props.now,
         this.props.min,
         this.props.max
       );
 
-    var label;
+    let label;
 
-    if (typeof this.props.label === "string") {
+    if (typeof this.props.label === 'string') {
       label = this.renderLabel(percentage);
     } else if (this.props.label) {
       label = this.props.label;
@@ -93,7 +92,7 @@ var ProgressBar = React.createClass({
       label = this.renderScreenReaderOnlyLabel(label);
     }
 
-    var classes = this.getBsClassSet();
+    let classes = this.getBsClassSet();
 
     return (
       <div {...this.props} className={joinClasses(this.props.className, classSet(classes))} role="progressbar"
@@ -106,8 +105,8 @@ var ProgressBar = React.createClass({
     );
   },
 
-  renderLabel: function (percentage) {
-    var InterpolateClass = this.props.interpolateClass || Interpolate;
+  renderLabel(percentage) {
+    let InterpolateClass = this.props.interpolateClass || Interpolate;
 
     return (
       <InterpolateClass
@@ -121,7 +120,7 @@ var ProgressBar = React.createClass({
     );
   },
 
-  renderScreenReaderOnlyLabel: function (label) {
+  renderScreenReaderOnlyLabel(label) {
     return (
       <span className="sr-only">
         {label}
@@ -130,4 +129,4 @@ var ProgressBar = React.createClass({
   }
 });
 
-module.exports = ProgressBar;
+export default ProgressBar;

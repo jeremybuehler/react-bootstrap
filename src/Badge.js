@@ -1,21 +1,21 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var classSet = require('./utils/classSet');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import ValidComponentChildren from './utils/ValidComponentChildren';
+import classSet from './utils/classSet';
 
-var Badge = React.createClass({
+const Badge = React.createClass({
   propTypes: {
     pullRight: React.PropTypes.bool
   },
 
-  hasContent: function () {
+  hasContent() {
     return ValidComponentChildren.hasValidComponent(this.props.children) ||
       (typeof this.props.children === 'string') ||
-      (typeof this.props.children === 'number')
+      (typeof this.props.children === 'number');
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       'pull-right': this.props.pullRight,
       'badge': this.hasContent()
     };
@@ -29,4 +29,4 @@ var Badge = React.createClass({
   }
 });
 
-module.exports = Badge;
+export default Badge;

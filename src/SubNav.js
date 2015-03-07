@@ -1,14 +1,13 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var createChainedFunction = require('./utils/createChainedFunction');
-var BootstrapMixin = require('./BootstrapMixin');
+import ValidComponentChildren from './utils/ValidComponentChildren';
+import createChainedFunction from './utils/createChainedFunction';
+import BootstrapMixin from './BootstrapMixin';
 
-
-var SubNav = React.createClass({
+const SubNav = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -21,13 +20,13 @@ var SubNav = React.createClass({
     target: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'nav'
     };
   },
 
-  handleClick: function (e) {
+  handleClick(e) {
     if (this.props.onSelect) {
       e.preventDefault();
 
@@ -37,11 +36,11 @@ var SubNav = React.createClass({
     }
   },
 
-  isActive: function () {
+  isActive() {
     return this.isChildActive(this);
   },
 
-  isChildActive: function (child) {
+  isChildActive(child) {
     if (child.props.active) {
       return true;
     }
@@ -55,12 +54,12 @@ var SubNav = React.createClass({
     }
 
     if (child.props.children) {
-      var isActive = false;
+      let isActive = false;
 
       ValidComponentChildren.forEach(
         child.props.children,
-        function (child) {
-          if (this.isChildActive(child)) {
+        function (grandchild) {
+          if (this.isChildActive(grandchild)) {
             isActive = true;
           }
         },
@@ -73,12 +72,12 @@ var SubNav = React.createClass({
     return false;
   },
 
-  getChildActiveProp: function (child) {
+  getChildActiveProp(child) {
     if (child.props.active) {
       return true;
     }
     if (this.props.activeKey != null) {
-      if (child.props.eventKey == this.props.activeKey) {
+      if (child.props.eventKey === this.props.activeKey) {
         return true;
       }
     }
@@ -91,8 +90,8 @@ var SubNav = React.createClass({
     return child.props.active;
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       'active': this.isActive(),
       'disabled': this.props.disabled
     };
@@ -114,7 +113,7 @@ var SubNav = React.createClass({
     );
   },
 
-  renderNavItem: function (child, index) {
+  renderNavItem(child, index) {
     return cloneWithProps(
       child,
       {
@@ -127,4 +126,4 @@ var SubNav = React.createClass({
   }
 });
 
-module.exports = SubNav;
+export default SubNav;

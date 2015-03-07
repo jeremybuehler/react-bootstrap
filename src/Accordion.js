@@ -1,8 +1,8 @@
-var React = require('react');
-var PanelGroup = require('./PanelGroup');
+import React from 'react';
+import PanelGroup from './PanelGroup';
 
-var Accordion = React.createClass({
-  render: function () {
+const Accordion = React.createClass({
+  render() {
     return (
       <PanelGroup {...this.props} accordion={true}>
         {this.props.children}
@@ -11,4 +11,4 @@ var Accordion = React.createClass({
   }
 });
 
-module.exports = Accordion;
+export default Accordion;

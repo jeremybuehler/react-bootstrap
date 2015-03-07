@@ -1,16 +1,14 @@
-var React = require('react');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var createChainedFunction = require('./utils/createChainedFunction');
+import ValidComponentChildren from './utils/ValidComponentChildren';
 
-var ListGroup = React.createClass({
+const ListGroup = React.createClass({
   propTypes: {
     onClick: React.PropTypes.func
   },
 
-  render: function () {
+  render() {
     return (
       <div className="list-group">
         {ValidComponentChildren.map(this.props.children, this.renderListItem)}
@@ -18,7 +16,7 @@ var ListGroup = React.createClass({
     );
   },
 
-  renderListItem: function (child, index) {
+  renderListItem(child, index) {
     return cloneWithProps(child, {
       ref: child.ref,
       key: child.key ? child.key : index
@@ -26,4 +24,4 @@ var ListGroup = React.createClass({
   }
 });
 
-module.exports = ListGroup;
+export default ListGroup;

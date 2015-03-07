@@ -1,17 +1,17 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var createChainedFunction = require('./utils/createChainedFunction');
+import ValidComponentChildren from './utils/ValidComponentChildren';
+import createChainedFunction from './utils/createChainedFunction';
 
-var Pager = React.createClass({
+const Pager = React.createClass({
 
   propTypes: {
     onSelect: React.PropTypes.func
   },
 
-  render: function () {
+  render() {
     return (
       <ul
         {...this.props}
@@ -21,7 +21,7 @@ var Pager = React.createClass({
     );
   },
 
-  renderPageItem: function (child, index) {
+  renderPageItem(child, index) {
     return cloneWithProps(
       child,
       {
@@ -33,4 +33,4 @@ var Pager = React.createClass({
   }
 });
 
-module.exports = Pager;
+export default Pager;

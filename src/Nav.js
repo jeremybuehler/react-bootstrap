@@ -1,20 +1,19 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var BootstrapMixin = require('./BootstrapMixin');
-var CollapsableMixin = require('./CollapsableMixin');
-var classSet = require('./utils/classSet');
-var domUtils = require('./utils/domUtils');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import BootstrapMixin from './BootstrapMixin';
+import CollapsableMixin from './CollapsableMixin';
+import classSet from './utils/classSet';
+import domUtils from './utils/domUtils';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var createChainedFunction = require('./utils/createChainedFunction');
+import ValidComponentChildren from './utils/ValidComponentChildren';
+import createChainedFunction from './utils/createChainedFunction';
 
-
-var Nav = React.createClass({
+const Nav = React.createClass({
   mixins: [BootstrapMixin, CollapsableMixin],
 
   propTypes: {
-    bsStyle: React.PropTypes.oneOf(['tabs','pills']),
+    bsStyle: React.PropTypes.oneOf(['tabs', 'pills']),
     stacked: React.PropTypes.bool,
     justified: React.PropTypes.bool,
     onSelect: React.PropTypes.func,
@@ -25,26 +24,26 @@ var Nav = React.createClass({
     right: React.PropTypes.bool
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'nav'
     };
   },
 
-  getCollapsableDOMNode: function () {
+  getCollapsableDOMNode() {
     return this.getDOMNode();
   },
 
-  getCollapsableDimensionValue: function () {
-    var node = this.refs.ul.getDOMNode(),
+  getCollapsableDimensionValue() {
+    let node = this.refs.ul.getDOMNode(),
         height = node.offsetHeight,
         computedStyles = domUtils.getComputedStyles(node);
 
     return height + parseInt(computedStyles.marginTop, 10) + parseInt(computedStyles.marginBottom, 10);
   },
 
-  render: function () {
-    var classes = this.props.collapsable ? this.getCollapsableClassSet() : {};
+  render() {
+    let classes = this.props.collapsable ? this.getCollapsableClassSet() : {};
 
     classes['navbar-collapse'] = this.props.collapsable;
 
@@ -59,8 +58,8 @@ var Nav = React.createClass({
     );
   },
 
-  renderUl: function () {
-    var classes = this.getBsClassSet();
+  renderUl() {
+    let classes = this.getBsClassSet();
 
     classes['nav-stacked'] = this.props.stacked;
     classes['nav-justified'] = this.props.justified;
@@ -75,12 +74,12 @@ var Nav = React.createClass({
     );
   },
 
-  getChildActiveProp: function (child) {
+  getChildActiveProp(child) {
     if (child.props.active) {
       return true;
     }
     if (this.props.activeKey != null) {
-      if (child.props.eventKey == this.props.activeKey) {
+      if (child.props.eventKey === this.props.activeKey) {
         return true;
       }
     }
@@ -93,7 +92,7 @@ var Nav = React.createClass({
     return child.props.active;
   },
 
-  renderNavItem: function (child, index) {
+  renderNavItem(child, index) {
     return cloneWithProps(
       child,
       {
@@ -109,4 +108,4 @@ var Nav = React.createClass({
   }
 });
 
-module.exports = Nav;
+export default Nav;

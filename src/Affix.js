@@ -1,17 +1,18 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var AffixMixin = require('./AffixMixin');
-var domUtils = require('./utils/domUtils');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import AffixMixin from './AffixMixin';
+import domUtils from './utils/domUtils';
 
-var Affix = React.createClass({
+const Affix = React.createClass({
   statics: {
     domUtils: domUtils
   },
 
   mixins: [AffixMixin],
 
-  render: function () {
-    var holderStyle = {top: this.state.affixPositionTop};
+  render() {
+    let holderStyle = {top: this.state.affixPositionTop};
+
     return (
       <div {...this.props} className={joinClasses(this.props.className, this.state.affixClass)} style={holderStyle}>
         {this.props.children}
@@ -20,4 +21,4 @@ var Affix = React.createClass({
   }
 });
 
-module.exports = Affix;
+export default Affix;

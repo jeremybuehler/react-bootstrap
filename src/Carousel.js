@@ -1,11 +1,11 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var cloneWithProps = require('./utils/cloneWithProps');
-var BootstrapMixin = require('./BootstrapMixin');
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import cloneWithProps from './utils/cloneWithProps';
+import BootstrapMixin from './BootstrapMixin';
+import ValidComponentChildren from './utils/ValidComponentChildren';
 
-var Carousel = React.createClass({
+const Carousel = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -21,7 +21,7 @@ var Carousel = React.createClass({
     direction: React.PropTypes.oneOf(['prev', 'next'])
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       slide: true,
       interval: 5000,
@@ -32,7 +32,7 @@ var Carousel = React.createClass({
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       activeIndex: this.props.defaultActiveIndex == null ?
         0 : this.props.defaultActiveIndex,
@@ -41,7 +41,7 @@ var Carousel = React.createClass({
     };
   },
 
-  getDirection: function (prevIndex, index) {
+  getDirection(prevIndex, index) {
     if (prevIndex === index) {
       return null;
     }
@@ -50,8 +50,8 @@ var Carousel = React.createClass({
       'prev' : 'next';
   },
 
-  componentWillReceiveProps: function (nextProps) {
-    var activeIndex = this.getActiveIndex();
+  componentWillReceiveProps(nextProps) {
+    let activeIndex = this.getActiveIndex();
 
     if (nextProps.activeIndex != null && nextProps.activeIndex !== activeIndex) {
       clearTimeout(this.timeout);
@@ -63,21 +63,21 @@ var Carousel = React.createClass({
     }
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.waitForNext();
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     clearTimeout(this.timeout);
   },
 
-  next: function (e) {
+  next(e) {
     if (e) {
       e.preventDefault();
     }
 
-    var index = this.getActiveIndex() + 1;
-    var count = ValidComponentChildren.numberOf(this.props.children);
+    let index = this.getActiveIndex() + 1;
+    let count = ValidComponentChildren.numberOf(this.props.children);
 
     if (index > count - 1) {
       if (!this.props.wrap) {
@@ -89,12 +89,12 @@ var Carousel = React.createClass({
     this.handleSelect(index, 'next');
   },
 
-  prev: function (e) {
+  prev(e) {
     if (e) {
       e.preventDefault();
     }
 
-    var index = this.getActiveIndex() - 1;
+    let index = this.getActiveIndex() - 1;
 
     if (index < 0) {
       if (!this.props.wrap) {
@@ -106,37 +106,37 @@ var Carousel = React.createClass({
     this.handleSelect(index, 'prev');
   },
 
-  pause: function () {
+  pause() {
     this.isPaused = true;
     clearTimeout(this.timeout);
   },
 
-  play: function () {
+  play() {
     this.isPaused = false;
     this.waitForNext();
   },
 
-  waitForNext: function () {
+  waitForNext() {
     if (!this.isPaused && this.props.slide && this.props.interval &&
         this.props.activeIndex == null) {
       this.timeout = setTimeout(this.next, this.props.interval);
     }
   },
 
-  handleMouseOver: function () {
+  handleMouseOver() {
     if (this.props.pauseOnHover) {
       this.pause();
     }
   },
 
-  handleMouseOut: function () {
+  handleMouseOut() {
     if (this.isPaused) {
       this.play();
     }
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       carousel: true,
       slide: this.props.slide
     };
@@ -156,7 +156,7 @@ var Carousel = React.createClass({
     );
   },
 
-  renderPrev: function () {
+  renderPrev() {
     return (
       <a className="left carousel-control" href="#prev" key={0} onClick={this.prev}>
         <span className="glyphicon glyphicon-chevron-left" />
@@ -164,7 +164,7 @@ var Carousel = React.createClass({
     );
   },
 
-  renderNext: function () {
+  renderNext() {
     return (
       <a className="right carousel-control" href="#next" key={1} onClick={this.next}>
         <span className="glyphicon glyphicon-chevron-right"/>
@@ -172,10 +172,10 @@ var Carousel = React.createClass({
     );
   },
 
-  renderControls: function () {
+  renderControls() {
     if (this.props.wrap) {
-      var activeIndex = this.getActiveIndex();
-      var count = ValidComponentChildren.numberOf(this.props.children);
+      let activeIndex = this.getActiveIndex();
+      let count = ValidComponentChildren.numberOf(this.props.children);
 
       return [
         (activeIndex !== 0) ? this.renderPrev() : null,
@@ -189,8 +189,8 @@ var Carousel = React.createClass({
     ];
   },
 
-  renderIndicator: function (child, index) {
-    var className = (index === this.getActiveIndex()) ?
+  renderIndicator(child, index) {
+    let className = (index === this.getActiveIndex()) ?
       'active' : null;
 
     return (
@@ -201,8 +201,8 @@ var Carousel = React.createClass({
     );
   },
 
-  renderIndicators: function () {
-    var indicators = [];
+  renderIndicators() {
+    let indicators = [];
     ValidComponentChildren
       .forEach(this.props.children, function(child, index) {
         indicators.push(
@@ -221,11 +221,11 @@ var Carousel = React.createClass({
     );
   },
 
-  getActiveIndex: function () {
+  getActiveIndex() {
     return this.props.activeIndex != null ? this.props.activeIndex : this.state.activeIndex;
   },
 
-  handleItemAnimateOutEnd: function () {
+  handleItemAnimateOutEnd() {
     this.setState({
       previousActiveIndex: null,
       direction: null
@@ -238,10 +238,10 @@ var Carousel = React.createClass({
     });
   },
 
-  renderItem: function (child, index) {
-    var activeIndex = this.getActiveIndex();
-    var isActive = (index === activeIndex);
-    var isPreviousActive = this.state.previousActiveIndex != null &&
+  renderItem(child, index) {
+    let activeIndex = this.getActiveIndex();
+    let isActive = (index === activeIndex);
+    let isPreviousActive = this.state.previousActiveIndex != null &&
             this.state.previousActiveIndex === index && this.props.slide;
 
     return cloneWithProps(
@@ -259,10 +259,10 @@ var Carousel = React.createClass({
       );
   },
 
-  handleSelect: function (index, direction) {
+  handleSelect(index, direction) {
     clearTimeout(this.timeout);
 
-    var previousActiveIndex = this.getActiveIndex();
+    let previousActiveIndex = this.getActiveIndex();
     direction = direction || this.getDirection(previousActiveIndex, index);
 
     if (this.props.onSelect) {
@@ -286,4 +286,4 @@ var Carousel = React.createClass({
   }
 });
 
-module.exports = Carousel;
+export default Carousel;

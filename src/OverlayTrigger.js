@@ -1,10 +1,10 @@
-var React = require('react');
-var OverlayMixin = require('./OverlayMixin');
-var domUtils = require('./utils/domUtils');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import OverlayMixin from './OverlayMixin';
+import domUtils from './utils/domUtils';
+import cloneWithProps from './utils/cloneWithProps';
 
-var createChainedFunction = require('./utils/createChainedFunction');
-var assign = require('./utils/Object.assign');
+import createChainedFunction from './utils/createChainedFunction';
+import assign from './utils/Object.assign';
 
 /**
  * Check if value one is inside or equal to the of value
@@ -20,7 +20,7 @@ function isOneOf(one, of) {
   return one === of;
 }
 
-var OverlayTrigger = React.createClass({
+const OverlayTrigger = React.createClass({
   mixins: [OverlayMixin],
 
   propTypes: {
@@ -28,7 +28,7 @@ var OverlayTrigger = React.createClass({
       React.PropTypes.oneOf(['manual', 'click', 'hover', 'focus']),
       React.PropTypes.arrayOf(React.PropTypes.oneOf(['click', 'hover', 'focus']))
     ]),
-    placement: React.PropTypes.oneOf(['top','right', 'bottom', 'left']),
+    placement: React.PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     delay: React.PropTypes.number,
     delayShow: React.PropTypes.number,
     delayHide: React.PropTypes.number,
@@ -36,14 +36,14 @@ var OverlayTrigger = React.createClass({
     overlay: React.PropTypes.node.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       placement: 'right',
       trigger: ['hover', 'focus']
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       isOverlayShown: this.props.defaultOverlayShown == null ?
         false : this.props.defaultOverlayShown,
@@ -52,7 +52,7 @@ var OverlayTrigger = React.createClass({
     };
   },
 
-  show: function () {
+  show() {
     this.setState({
       isOverlayShown: true
     }, function() {
@@ -60,18 +60,21 @@ var OverlayTrigger = React.createClass({
     });
   },
 
-  hide: function () {
+  hide() {
     this.setState({
       isOverlayShown: false
     });
   },
 
-  toggle: function () {
-    this.state.isOverlayShown ?
-      this.hide() : this.show();
+  toggle() {
+    if (this.state.isOverlayShown) {
+      this.hide();
+    } else {
+     this.show();
+    }
   },
 
-  renderOverlay: function () {
+  renderOverlay() {
     if (!this.state.isOverlayShown) {
       return <span />;
     }
@@ -87,12 +90,12 @@ var OverlayTrigger = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     if (this.props.trigger === 'manual') {
       return React.Children.only(this.props.children);
     }
 
-    var props = {};
+    let props = {};
 
     if (isOneOf('click', this.props.trigger)) {
       props.onClick = createChainedFunction(this.toggle, this.props.onClick);
@@ -114,22 +117,22 @@ var OverlayTrigger = React.createClass({
     );
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     clearTimeout(this._hoverDelay);
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     this.updateOverlayPosition();
   },
 
-  handleDelayedShow: function () {
+  handleDelayedShow() {
     if (this._hoverDelay != null) {
       clearTimeout(this._hoverDelay);
       this._hoverDelay = null;
       return;
     }
 
-    var delay = this.props.delayShow != null ?
+    let delay = this.props.delayShow != null ?
       this.props.delayShow : this.props.delay;
 
     if (!delay) {
@@ -143,14 +146,14 @@ var OverlayTrigger = React.createClass({
     }.bind(this), delay);
   },
 
-  handleDelayedHide: function () {
+  handleDelayedHide() {
     if (this._hoverDelay != null) {
       clearTimeout(this._hoverDelay);
       this._hoverDelay = null;
       return;
     }
 
-    var delay = this.props.delayHide != null ?
+    let delay = this.props.delayHide != null ?
       this.props.delayHide : this.props.delay;
 
     if (!delay) {
@@ -164,12 +167,12 @@ var OverlayTrigger = React.createClass({
     }.bind(this), delay);
   },
 
-  updateOverlayPosition: function () {
+  updateOverlayPosition() {
     if (!this.isMounted()) {
       return;
     }
 
-    var pos = this.calcOverlayPosition();
+    let pos = this.calcOverlayPosition();
 
     this.setState({
       overlayLeft: pos.left,
@@ -177,12 +180,12 @@ var OverlayTrigger = React.createClass({
     });
   },
 
-  calcOverlayPosition: function () {
-    var childOffset = this.getPosition();
+  calcOverlayPosition() {
+    let childOffset = this.getPosition();
 
-    var overlayNode = this.getOverlayDOMNode();
-    var overlayHeight = overlayNode.offsetHeight;
-    var overlayWidth = overlayNode.offsetWidth;
+    let overlayNode = this.getOverlayDOMNode();
+    let overlayHeight = overlayNode.offsetHeight;
+    let overlayWidth = overlayNode.offsetWidth;
 
     switch (this.props.placement) {
       case 'right':
@@ -210,11 +213,11 @@ var OverlayTrigger = React.createClass({
     }
   },
 
-  getPosition: function () {
-    var node = this.getDOMNode();
-    var container = this.getContainerDOMNode();
+  getPosition() {
+    let node = this.getDOMNode();
+    let container = this.getContainerDOMNode();
 
-    var offset = container.tagName == 'BODY' ?
+    let offset = container.tagName === 'BODY' ?
       domUtils.getOffset(node) : domUtils.getPosition(node, container);
 
     return assign({}, offset, {
@@ -224,4 +227,4 @@ var OverlayTrigger = React.createClass({
   }
 });
 
-module.exports = OverlayTrigger;
+export default OverlayTrigger;

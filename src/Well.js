@@ -1,19 +1,19 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-var Well = React.createClass({
+const Well = React.createClass({
   mixins: [BootstrapMixin],
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'well'
     };
   },
 
-  render: function () {
-    var classes = this.getBsClassSet();
+  render() {
+    let classes = this.getBsClassSet();
 
     return (
       <div {...this.props} className={joinClasses(this.props.className, classSet(classes))}>
@@ -23,4 +23,4 @@ var Well = React.createClass({
   }
 });
 
-module.exports = Well;
+export default Well;

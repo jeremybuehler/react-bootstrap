@@ -1,23 +1,23 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-var Button = React.createClass({
+const Button = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
-    active:   React.PropTypes.bool,
+    active: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
-    block:    React.PropTypes.bool,
-    navItem:    React.PropTypes.bool,
+    block: React.PropTypes.bool,
+    navItem: React.PropTypes.bool,
     navDropdown: React.PropTypes.bool,
     componentClass: React.PropTypes.node,
     href: React.PropTypes.string,
     target: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsClass: 'button',
       bsStyle: 'default',
@@ -25,12 +25,15 @@ var Button = React.createClass({
     };
   },
 
-  render: function () {
-    var classes = this.props.navDropdown ? {} : this.getBsClassSet();
-    var renderFuncName;
+  render() {
+    let classes = this.props.navDropdown ? {} : this.getBsClassSet();
+    let renderFuncName;
 
-    classes['active'] = this.props.active;
-    classes['btn-block'] = this.props.block;
+    classes = {
+      active: this.props.active,
+      'btn-block': this.props.block,
+      ...classes
+    };
 
     if (this.props.navItem) {
       return this.renderNavItem(classes);
@@ -42,11 +45,11 @@ var Button = React.createClass({
     return this[renderFuncName](classes);
   },
 
-  renderAnchor: function (classes) {
+  renderAnchor(classes) {
 
-    var Component = this.props.componentClass || 'a';
-    var href = this.props.href || '#';
-    classes['disabled'] = this.props.disabled;
+    let Component = this.props.componentClass || 'a';
+    let href = this.props.href || '#';
+    classes.disabled = this.props.disabled;
 
     return (
       <Component
@@ -59,8 +62,8 @@ var Button = React.createClass({
     );
   },
 
-  renderButton: function (classes) {
-    var Component = this.props.componentClass || 'button';
+  renderButton(classes) {
+    let Component = this.props.componentClass || 'button';
 
     return (
       <Component
@@ -71,8 +74,8 @@ var Button = React.createClass({
     );
   },
 
-  renderNavItem: function (classes) {
-    var liClasses = {
+  renderNavItem(classes) {
+    let liClasses = {
       active: this.props.active
     };
 
@@ -84,4 +87,4 @@ var Button = React.createClass({
   }
 });
 
-module.exports = Button;
+export default Button;

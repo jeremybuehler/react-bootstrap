@@ -1,8 +1,8 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
 
-var PageItem = React.createClass({
+const PageItem = React.createClass({
 
   propTypes: {
     href: React.PropTypes.string,
@@ -14,14 +14,14 @@ var PageItem = React.createClass({
     eventKey: React.PropTypes.any
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       href: '#'
     };
   },
 
-  render: function () {
-    var classes = {
+  render() {
+    let classes = {
       'disabled': this.props.disabled,
       'previous': this.props.previous,
       'next': this.props.next
@@ -43,7 +43,7 @@ var PageItem = React.createClass({
     );
   },
 
-  handleSelect: function (e) {
+  handleSelect(e) {
     if (this.props.onSelect) {
       e.preventDefault();
 
@@ -54,4 +54,4 @@ var PageItem = React.createClass({
   }
 });
 
-module.exports = PageItem;
+export default PageItem;

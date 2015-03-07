@@ -1,19 +1,19 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
 
-var Row = React.createClass({
+const Row = React.createClass({
   propTypes: {
     componentClass: React.PropTypes.node.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       componentClass: 'div'
     };
   },
 
-  render: function () {
-    var ComponentClass = this.props.componentClass;
+  render() {
+    let ComponentClass = this.props.componentClass;
 
     return (
       <ComponentClass {...this.props} className={joinClasses(this.props.className, 'row')}>
@@ -23,4 +23,4 @@ var Row = React.createClass({
   }
 });
 
-module.exports = Row;
+export default Row;

@@ -1,10 +1,9 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var constants = require('./constants');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import constants from './constants';
 
-
-var Col = React.createClass({
+const Col = React.createClass({
   propTypes: {
     xs: React.PropTypes.number,
     sm: React.PropTypes.number,
@@ -25,20 +24,20 @@ var Col = React.createClass({
     componentClass: React.PropTypes.node.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       componentClass: 'div'
     };
   },
 
-  render: function () {
-    var ComponentClass = this.props.componentClass;
-    var classes = {};
+  render() {
+    let ComponentClass = this.props.componentClass;
+    let classes = {};
 
     Object.keys(constants.SIZES).forEach(function (key) {
-      var size = constants.SIZES[key];
-      var prop = size;
-      var classPart = size + '-';
+      let size = constants.SIZES[key];
+      let prop = size;
+      let classPart = size + '-';
 
       if (this.props[prop]) {
         classes['col-' + classPart + this.props[prop]] = true;
@@ -71,4 +70,4 @@ var Col = React.createClass({
   }
 });
 
-module.exports = Col;
+export default Col;

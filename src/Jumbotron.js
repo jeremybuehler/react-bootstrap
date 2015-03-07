@@ -1,9 +1,8 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
 
-var Jumbotron = React.createClass({
-
-  render: function () {
+const Jumbotron = React.createClass({
+  render() {
     return (
       <div {...this.props} className={joinClasses(this.props.className, 'jumbotron')}>
         {this.props.children}
@@ -12,4 +11,4 @@ var Jumbotron = React.createClass({
   }
 });
 
-module.exports = Jumbotron;
+export default Jumbotron;

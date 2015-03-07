@@ -1,14 +1,13 @@
-var React = require('react');
-var joinClasses = require('./utils/joinClasses');
-var classSet = require('./utils/classSet');
-var BootstrapMixin = require('./BootstrapMixin');
+import React from 'react';
+import joinClasses from './utils/joinClasses';
+import classSet from './utils/classSet';
+import BootstrapMixin from './BootstrapMixin';
 
-
-var Popover = React.createClass({
+const Popover = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
-    placement: React.PropTypes.oneOf(['top','right', 'bottom', 'left']),
+    placement: React.PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     positionLeft: React.PropTypes.number,
     positionTop: React.PropTypes.number,
     arrowOffsetLeft: React.PropTypes.number,
@@ -16,26 +15,29 @@ var Popover = React.createClass({
     title: React.PropTypes.node
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       placement: 'right'
     };
   },
 
-  render: function () {
-    var classes = {};
-    classes['popover'] = true;
-    classes[this.props.placement] = true;
-    classes['in'] = this.props.positionLeft != null || this.props.positionTop != null;
+  render() {
+    let classes = {
+      'popover': true,
+      [this.props.placement]: true,
+      'in': this.props.positionLeft != null || this.props.positionTop != null
+    };
 
-    var style = {};
-    style['left'] = this.props.positionLeft;
-    style['top'] = this.props.positionTop;
-    style['display'] = 'block';
+    let style = {
+      'left': this.props.positionLeft,
+      'top': this.props.positionTop,
+      'display': 'block'
+    };
 
-    var arrowStyle = {};
-    arrowStyle['left'] = this.props.arrowOffsetLeft;
-    arrowStyle['top'] = this.props.arrowOffsetTop;
+    let arrowStyle = {
+      'left': this.props.arrowOffsetLeft,
+      'top': this.props.arrowOffsetTop
+    };
 
     return (
       <div {...this.props} className={joinClasses(this.props.className, classSet(classes))} style={style} title={null}>
@@ -48,11 +50,11 @@ var Popover = React.createClass({
     );
   },
 
-  renderTitle: function() {
+  renderTitle() {
     return (
       <h3 className="popover-title">{this.props.title}</h3>
     );
   }
 });
 
-module.exports = Popover;
+export default Popover;

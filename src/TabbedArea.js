@@ -1,13 +1,13 @@
-var React = require('react');
-var BootstrapMixin = require('./BootstrapMixin');
-var cloneWithProps = require('./utils/cloneWithProps');
+import React from 'react';
+import BootstrapMixin from './BootstrapMixin';
+import cloneWithProps from './utils/cloneWithProps';
 
-var ValidComponentChildren = require('./utils/ValidComponentChildren');
-var Nav = require('./Nav');
-var NavItem = require('./NavItem');
+import ValidComponentChildren from './utils/ValidComponentChildren';
+import Nav from './Nav';
+import NavItem from './NavItem';
 
 function getDefaultActiveKeyFromChildren(children) {
-  var defaultActiveKey;
+  let defaultActiveKey;
 
   ValidComponentChildren.forEach(children, function(child) {
     if (defaultActiveKey == null) {
@@ -18,7 +18,7 @@ function getDefaultActiveKeyFromChildren(children) {
   return defaultActiveKey;
 }
 
-var TabbedArea = React.createClass({
+const TabbedArea = React.createClass({
   mixins: [BootstrapMixin],
 
   propTypes: {
@@ -27,15 +27,15 @@ var TabbedArea = React.createClass({
     onSelect: React.PropTypes.func
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       bsStyle: "tabs",
       animation: true
     };
   },
 
-  getInitialState: function () {
-    var defaultActiveKey = this.props.defaultActiveKey != null ?
+  getInitialState() {
+    let defaultActiveKey = this.props.defaultActiveKey != null ?
       this.props.defaultActiveKey : getDefaultActiveKeyFromChildren(this.props.children);
 
     // TODO: In __DEV__ mode warn via `console.warn` if no `defaultActiveKey` has
@@ -47,7 +47,7 @@ var TabbedArea = React.createClass({
     };
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.activeKey != null && nextProps.activeKey !== this.props.activeKey) {
       this.setState({
         previousActiveKey: this.props.activeKey
@@ -55,21 +55,21 @@ var TabbedArea = React.createClass({
     }
   },
 
-  handlePaneAnimateOutEnd: function () {
+  handlePaneAnimateOutEnd() {
     this.setState({
       previousActiveKey: null
     });
   },
 
-  render: function () {
-    var activeKey =
+  render() {
+    let activeKey =
       this.props.activeKey != null ? this.props.activeKey : this.state.activeKey;
 
     function renderTabIfSet(child) {
       return child.props.tab != null ? this.renderTab(child) : null;
     }
 
-    var nav = (
+    let nav = (
       <Nav {...this.props} activeKey={activeKey} onSelect={this.handleSelect} ref="tabs">
         {ValidComponentChildren.map(this.props.children, renderTabIfSet, this)}
       </Nav>
@@ -85,12 +85,12 @@ var TabbedArea = React.createClass({
     );
   },
 
-  getActiveKey: function () {
+  getActiveKey() {
     return this.props.activeKey != null ? this.props.activeKey : this.state.activeKey;
   },
 
-  renderPane: function (child, index) {
-    var activeKey = this.getActiveKey();
+  renderPane(child, index) {
+    let activeKey = this.getActiveKey();
 
     return cloneWithProps(
         child,
@@ -106,8 +106,8 @@ var TabbedArea = React.createClass({
       );
   },
 
-  renderTab: function (child) {
-    var key = child.props.eventKey;
+  renderTab(child) {
+    let key = child.props.eventKey;
     return (
       <NavItem
         ref={'tab' + key}
@@ -117,12 +117,12 @@ var TabbedArea = React.createClass({
     );
   },
 
-  shouldComponentUpdate: function() {
+  shouldComponentUpdate() {
     // Defer any updates to this component during the `onSelect` handler.
     return !this._isChanging;
   },
 
-  handleSelect: function (key) {
+  handleSelect(key) {
     if (this.props.onSelect) {
       this._isChanging = true;
       this.props.onSelect(key);
@@ -136,4 +136,4 @@ var TabbedArea = React.createClass({
   }
 });
 
-module.exports = TabbedArea;
+export default TabbedArea;
